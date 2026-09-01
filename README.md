@@ -43,19 +43,50 @@ fresh session.
 4. Open the `hubpeople-toolkit/` folder in your assistant and approve the HubPeople
    connection when asked.
 
+### Open the folder itself
+
+**Open `hubpeople-toolkit` — that exact folder, not the one holding it.** This is the
+easiest thing to get wrong and the hardest to spot. From a folder above it the assistant
+reads no operating guide and gets no connection, and nothing tells you so: it simply
+behaves like an assistant that has never heard of any of this. If a first session seems
+not to know what the toolkit is, check which folder is open before you check anything
+else.
+
 ### Which app am I opening it in?
 
-- **Claude Code** — terminal or the VS Code extension: open the `hubpeople-toolkit`
-  folder. The connection configures itself from the folder. This is the recommended
-  way to run the toolkit.
-- **Claude Desktop** — use the **Code tab** and open the `hubpeople-toolkit` folder;
-  it reads the folder's connection setup the same way Claude Code does. The **Cowork
-  tab does not read folder configuration** and cannot reach the HubPeople connection
-  yet — Cowork support arrives when sign-in-based connection does.
+- **Claude Desktop, the Code tab** — where we would start. It opens the folder the same
+  way the others do, and it can show you a page in a browser pane beside the work while
+  you build it, reading the files on your machine so what you see is the change you have
+  not pushed yet. On Windows it needs Git for Windows installed first, and the app
+  restarted afterwards.
+- **Claude Code** — terminal or the VS Code extension. Same behaviour, and the
+  connection configures itself from the folder; there is no browser pane, so open a page
+  file from disk when you want to look at one.
+- **Claude Desktop, the Cowork tab** — not this one. Cowork takes its connections from
+  your claude.ai account rather than from the folder, so it reaches neither the
+  workspace nor the skills and scripts in it.
 - **Other assistants** (Codex, Gemini CLI, and anything that reads `AGENTS.md`):
   open the folder — the operating guide loads from `AGENTS.md`. Register the
   HubPeople MCP server your client's own way, using the address and token variable
   shown in the folder's `.mcp.json`.
+
+## When it does not connect
+
+Work down this list. The first two cover almost everything.
+
+1. **Did you restart the editor, or only reload the window?** A program keeps the
+   environment it started with, so a token set while the editor was already running is
+   invisible to it. Close it completely and reopen.
+2. **Are you in the right folder?** As above: the one containing `AGENTS.md`.
+3. **Is the token reaching the editor?** In its own terminal, `echo $env:HUBPEOPLE_PAT`
+   on Windows or `echo $HUBPEOPLE_PAT` on macOS and Linux. Empty means the editor cannot
+   see it, which is nearly always cause 1.
+4. **Did you decline the connection prompt?** Assistants generally ask once per folder
+   and remember the answer. In Claude Code, `claude mcp reset-project-choices` clears it
+   so you are asked again.
+
+If the connection is up but a brand you expected is missing, that is account access
+rather than setup: the assistant sees exactly the brands your HubPeople login does.
 
 ## Upgrading
 
