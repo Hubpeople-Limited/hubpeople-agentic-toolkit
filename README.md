@@ -9,16 +9,28 @@ deliberately and proved after it lands.
 The toolkit is a workspace folder your AI assistant works in. It carries the operating
 guide the assistant follows, the skills it works with — building pages, auditing a
 site, starting a brand from nothing — and the folder structure your brands are checked
-out into. It connects to the HubPeople platform through one connection and one token;
-there is nothing else to install.
+out into. It reaches the HubPeople platform through a connection you add once to your
+Claude account; there is nothing to install and no key to keep.
 
 ## Install
 
-The toolkit is a folder. Installing means: get the zip, extract it **where you want
-the folder to live** — it creates `hubpeople-toolkit/` itself, so there is no need to
-make a folder for it first — set your token once, then open that folder.
+The toolkit is a folder. Installing means: connect your account once, get the zip, and
+extract it **where you want the folder to live** — it creates `hubpeople-toolkit/`
+itself, so there is no need to make a folder for it first.
 
-### Let your AI assistant do it (recommended)
+### Connect your account (once, ever)
+
+This is not per machine and not per folder. Do it once and every session you ever open,
+on any computer you sign into, already has it.
+
+1. In Claude, open **Settings → Connectors** and choose **Add custom connector**.
+2. Give it the address `https://mcp.hubpeople.ai/mcp`.
+3. Sign in with the HubPeople login you already use.
+
+That is the whole of setup. There is no token to copy, nothing to paste into your
+system, and nothing to set up again on your second machine.
+
+### Let your AI assistant fetch the toolkit (recommended)
 
 Open an assistant session wherever you keep your projects and say:
 
@@ -27,8 +39,7 @@ Open an assistant session wherever you keep your projects and say:
 > latest release's `agentic-toolkit-*.zip` asset, verify it against the SHA256 in the
 > release notes, and extract it here.
 
-Then set your token (step 3 below) and open the new `hubpeople-toolkit/` folder in a
-fresh session.
+Then open the new `hubpeople-toolkit/` folder in a fresh session.
 
 ### By hand
 
@@ -36,21 +47,16 @@ fresh session.
    [latest release](../../releases/latest) — the named asset, not "Source code".
 2. Extract it where you want the workspace to live. It creates `hubpeople-toolkit/` —
    that folder is permanent: your brands, notes and history live inside it.
-3. Set your HubPeople token once per machine: the Connecting section of the
-   `README.md` **inside the folder** has the two commands (the variable is
-   `HUBPEOPLE_PAT`). Then restart your editor completely — a running program keeps
-   its old environment.
-4. Open the `hubpeople-toolkit/` folder in your assistant and approve the HubPeople
-   connection when asked.
+3. Open the `hubpeople-toolkit/` folder in your assistant. If you connected your
+   account above, the tools are already there.
 
 ### Open the folder itself
 
 **Open `hubpeople-toolkit` — that exact folder, not the one holding it.** This is the
 easiest thing to get wrong and the hardest to spot. From a folder above it the assistant
-reads no operating guide and gets no connection, and nothing tells you so: it simply
-behaves like an assistant that has never heard of any of this. If a first session seems
-not to know what the toolkit is, check which folder is open before you check anything
-else.
+reads no operating guide, and nothing tells you so: it simply behaves like an assistant
+that has never heard of any of this. If a first session seems not to know what the
+toolkit is, check which folder is open before you check anything else.
 
 ### Which app am I opening it in?
 
@@ -59,28 +65,33 @@ else.
   you build it, reading the files on your machine so what you see is the change you have
   not pushed yet. On Windows it needs Git for Windows installed first, and the app
   restarted afterwards.
-- **Claude Code** — terminal or the VS Code extension. Same behaviour, and the
-  connection configures itself from the folder; there is no browser pane, so open a page
-  file from disk when you want to look at one.
-- **Claude Desktop, the Cowork tab** — not this one. Cowork takes its connections from
-  your claude.ai account rather than from the folder, so it reaches neither the
-  workspace nor the skills and scripts in it.
-- **Other assistants** (Codex, Gemini CLI, and anything that reads `AGENTS.md`):
-  open the folder — the operating guide loads from `AGENTS.md`. Register the
-  HubPeople MCP server your client's own way, using the address and token variable
-  shown in the folder's `.mcp.json`.
+- **Claude Code** — terminal or the VS Code extension. Same behaviour, and the same
+  account connection; there is no browser pane, so open a page file from disk when you
+  want to look at one.
+- **Claude Desktop, the Cowork tab** — not this one. Cowork does not open a folder on
+  your machine, so it reaches neither the workspace nor the skills and scripts in it,
+  even though your connection is there.
+- **Other assistants** (Codex, Gemini CLI, and anything that reads `AGENTS.md`): the
+  operating guide loads for them from `AGENTS.md`, but connecting them to the HubPeople
+  platform is not supported yet — the sign-in these clients use is not one the platform
+  accepts today. Claude is the supported route.
 
 ## When it does not connect
 
 Work down this list. The first two cover almost everything.
 
-1. **Did you restart the editor, or only reload the window?** A program keeps the
-   environment it started with, so a token set while the editor was already running is
-   invisible to it. Close it completely and reopen.
-2. **Are you in the right folder?** As above: the one containing `AGENTS.md`.
-3. **Is the token reaching the editor?** In its own terminal, `echo $env:HUBPEOPLE_PAT`
-   on Windows or `echo $HUBPEOPLE_PAT` on macOS and Linux. Empty means the editor cannot
-   see it, which is nearly always cause 1.
+1. **Are you in the right folder?** As above: the one containing `AGENTS.md`.
+2. **Is the connector actually on your account?** In a terminal, run `claude mcp list`.
+   A HubPeople line beginning `claude.ai ` is your account connection. No such line
+   means it was never added, or it was added on a different Claude account from the one
+   you are signed into here.
+3. **Is there a connection file in the folder?** If your workspace contains a
+   `.mcp.json` — older versions of this toolkit shipped one — it **overrides your
+   account connection** for that folder, silently, and nothing looks wrong while it
+   does. Run `claude mcp list` **from any folder outside the workspace**: inside it, the
+   file is what answers, so the check there cannot tell you about your account. Once you
+   can see the connector working from outside, the file can be deleted. Not before —
+   until then that file is what is connecting you.
 4. **Did you decline the connection prompt?** Assistants generally ask once per folder
    and remember the answer. In Claude Code, `claude mcp reset-project-choices` clears it
    so you are asked again.
@@ -94,6 +105,10 @@ Ask your assistant to upgrade, or follow the Upgrading section of the `README.md
 inside your workspace. An upgrade replaces only the toolkit's own files — everything
 of yours stays exactly as it is. Each release's notes on the
 [Releases](../../releases) page say what changed.
+
+One step an upgrade cannot do for you: if your workspace still holds a `.mcp.json` from
+an older version, replacing files will not remove it. Follow point 3 above — confirm
+your account connection from outside the folder first, then delete it.
 
 ## Security
 
