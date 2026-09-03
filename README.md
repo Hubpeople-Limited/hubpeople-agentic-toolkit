@@ -14,23 +14,17 @@ Claude account; there is nothing to install and no key to keep.
 
 ## Install
 
-The toolkit is a folder. Installing means: connect your account once, get the zip, and
-extract it **where you want the folder to live** — it creates `hubpeople-toolkit/`
-itself, so there is no need to make a folder for it first.
+Three steps, and the third is the one people miss.
 
-### Connect your account (once, ever)
+1. **Get the toolkit** — below. It extracts to a folder called `hubpeople-toolkit/`.
+2. **Connect your account**, once, ever — below.
+3. **Open `hubpeople-toolkit/` itself in a new session.** Not the folder you extracted
+   it into. Your assistant reads its instructions when a session starts, so it has to
+   start in there.
 
-This is not per machine and not per folder. Do it once and every session you ever open,
-on any computer you sign into, already has it.
+### Get the toolkit
 
-1. In Claude, open **Settings → Connectors** and choose **Add custom connector**.
-2. Give it the address `https://mcp.hubpeople.ai/mcp`.
-3. Sign in with the HubPeople login you already use.
-
-That is the whole of setup. There is no token to copy, nothing to paste into your
-system, and nothing to set up again on your second machine.
-
-### Let your AI assistant fetch the toolkit (recommended)
+#### Let your AI assistant do it (recommended)
 
 Open an assistant session wherever you keep your projects and say:
 
@@ -39,24 +33,43 @@ Open an assistant session wherever you keep your projects and say:
 > latest release's `agentic-toolkit-*.zip` asset, verify it against the SHA256 in the
 > release notes, and extract it here.
 
-Then open the new `hubpeople-toolkit/` folder in a fresh session.
-
-### By hand
+#### By hand
 
 1. Download `agentic-toolkit-<version>.zip` from the
    [latest release](../../releases/latest) — the named asset, not "Source code".
 2. Extract it where you want the workspace to live. It creates `hubpeople-toolkit/` —
    that folder is permanent: your brands, notes and history live inside it.
-3. Open the `hubpeople-toolkit/` folder in your assistant. If you connected your
-   account above, the tools are already there.
 
-### Open the folder itself
+### Connect your account (once, ever)
 
-**Open `hubpeople-toolkit` — that exact folder, not the one holding it.** This is the
-easiest thing to get wrong and the hardest to spot. From a folder above it the assistant
-reads no operating guide, and nothing tells you so: it simply behaves like an assistant
-that has never heard of any of this. If a first session seems not to know what the
-toolkit is, check which folder is open before you check anything else.
+Not per machine and not per folder. Do it once and every session you open afterwards,
+on any computer you sign into, already has it.
+
+1. In Claude, open **Settings → Connectors** and choose **Add custom connector**.
+2. Give it the address `https://mcp.hubpeople.ai/mcp`.
+3. Sign in with the HubPeople login you already use.
+
+There is no token to copy, nothing to paste into your system, and nothing to set up
+again on your second machine.
+
+**Not sure whether you have already done it?** You do not have to find out first. Open
+the workspace and your assistant tells you where you stand in its opening words — it
+reports what it is connected to before it does anything else. Or check it yourself with
+`claude mcp list` in a terminal: a HubPeople line beginning `claude.ai ` is your account
+connection.
+
+### Open `hubpeople-toolkit` itself, in a new session
+
+**That exact folder, not the one holding it, and a session that starts inside it.** This
+is the easiest thing to get wrong and the hardest to spot. Your assistant reads the
+operating guide when a session starts, so a session already running in the folder above
+will not pick it up — even after the files appear. Start a new one in
+`hubpeople-toolkit`.
+
+From anywhere else the assistant reads no guide, and nothing tells you so: it simply
+behaves like an assistant that has never heard of any of this. If a first session seems
+not to know what the toolkit is, check which folder is open before you check anything
+else.
 
 ### Which app am I opening it in?
 
