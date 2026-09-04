@@ -81,9 +81,10 @@ else.
 - **Claude Code** — terminal or the VS Code extension. Same behaviour, and the same
   account connection; there is no browser pane, so open a page file from disk when you
   want to look at one.
-- **Claude Desktop, the Cowork tab** — not this one. Cowork does not open a folder on
-  your machine, so it reaches neither the workspace nor the skills and scripts in it,
-  even though your connection is there.
+- **Claude Desktop, the Cowork tab** — with `hubpeople-toolkit/` added as its working
+  folder it reads the operating guide and the files in the workspace, but it does not
+  load the skills. Use it for looking at a brand and for small copy changes, and the
+  Code tab for building pages.
 - **Other assistants** (Codex, Gemini CLI, and anything that reads `AGENTS.md`): the
   operating guide loads for them from `AGENTS.md`, but connecting them to the HubPeople
   platform is not supported yet — the sign-in these clients use is not one the platform
