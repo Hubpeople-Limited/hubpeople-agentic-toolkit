@@ -14,31 +14,43 @@ Claude account; there is nothing to install and no key to keep.
 
 ## Install
 
-Three steps, and the third is the one people miss.
+Three steps. The folder you open in the first one is the toolkit from then on.
 
-1. **Get the toolkit** — below. It extracts to a folder called `hubpeople-toolkit/`.
+1. **Make an empty folder called `hubpeople-toolkit`** and open it in your assistant
+   — in the Claude desktop app, the Code tab.
 2. **Connect your account**, once, ever — below.
-3. **Open `hubpeople-toolkit/` itself in a new session.** Not the folder you extracted
-   it into. Your assistant reads its instructions when a session starts, so it has to
-   start in there.
+3. **Let your assistant install the toolkit into that folder**, then start a new chat
+   in the same place. Your assistant reads its instructions when a session starts,
+   which is why the new chat matters.
 
 ### Get the toolkit
 
 #### Let your AI assistant do it (recommended)
 
-Open an assistant session wherever you keep your projects and say:
+With the empty `hubpeople-toolkit` folder open, say:
 
-> Install the HubPeople agentic toolkit from
-> https://github.com/Hubpeople-Limited/hubpeople-agentic-toolkit — download the
-> latest release's `agentic-toolkit-*.zip` asset, verify it against the SHA256 in the
-> release notes, and extract it here.
+> Set up the HubPeople toolkit in this folder.
+>
+> 1. Download https://github.com/Hubpeople-Limited/hubpeople-agentic-toolkit/releases/latest/download/hubpeople-toolkit.zip
+>    and https://github.com/Hubpeople-Limited/hubpeople-agentic-toolkit/releases/latest/download/SHA256SUMS into this folder.
+> 2. Check the zip's SHA256 against the line for hubpeople-toolkit.zip in SHA256SUMS. Stop and tell me if it does not match.
+> 3. Extract it. The zip holds one top-level folder; put that folder's contents directly in this folder,
+>    so AGENTS.md, VERSION and MANIFEST sit here at the top level.
+> 4. Delete the zip, SHA256SUMS and any empty folder left behind, then list what is here.
+> 5. Tell me the VERSION you installed and that I should start a new chat in this folder.
+>
+> Do not change anything on my HubPeople account; this is setup only.
+
+Say yes to the cards that appear: they are the assistant asking to fetch and extract
+the file. Then start a new chat in the same folder.
 
 #### By hand
 
-1. Download `agentic-toolkit-<version>.zip` from the
-   [latest release](../../releases/latest) — the named asset, not "Source code".
+1. Download [`hubpeople-toolkit.zip`](../../releases/latest/download/hubpeople-toolkit.zip)
+   — the newest release, always at that address.
 2. Extract it where you want the workspace to live. It creates `hubpeople-toolkit/` —
    that folder is permanent: your brands, notes and history live inside it.
+3. Open `hubpeople-toolkit/` itself in a new session, not the folder holding it.
 
 ### Connect your account (once, ever)
 
@@ -58,13 +70,12 @@ reports what it is connected to before it does anything else. Or check it yourse
 `claude mcp list` in a terminal: a HubPeople line beginning `claude.ai ` is your account
 connection.
 
-### Open `hubpeople-toolkit` itself, in a new session
+### Start a new chat in `hubpeople-toolkit`
 
-**That exact folder, not the one holding it, and a session that starts inside it.** This
-is the easiest thing to get wrong and the hardest to spot. Your assistant reads the
-operating guide when a session starts, so a session already running in the folder above
-will not pick it up — even after the files appear. Start a new one in
-`hubpeople-toolkit`.
+**A session that starts inside the folder that holds `AGENTS.md`.** Your assistant reads
+the operating guide when a session starts, so the session that did the installing will
+not pick it up — even after the files appear. Start a new one in the same folder. If
+you extracted by hand, that folder is `hubpeople-toolkit` itself, not the one holding it.
 
 From anywhere else the assistant reads no guide, and nothing tells you so: it simply
 behaves like an assistant that has never heard of any of this. If a first session seems
@@ -115,10 +126,14 @@ rather than setup: the assistant sees exactly the brands your HubPeople login do
 
 ## Upgrading
 
-Ask your assistant to upgrade, or follow the Upgrading section of the `README.md`
-inside your workspace. An upgrade replaces only the toolkit's own files — everything
-of yours stays exactly as it is. Each release's notes on the
-[Releases](../../releases) page say what changed.
+Your assistant checks once a session whether a newer release exists and tells you in
+one line if so; it never upgrades unless you ask. Ask it to upgrade, or follow the
+Upgrading section of the `README.md` inside your workspace. An upgrade replaces only
+the toolkit's own files — everything of yours stays exactly as it is. Each release's
+notes on the [Releases](../../releases) page say what changed, and the newest zip and
+its hash are always at
+[`hubpeople-toolkit.zip`](../../releases/latest/download/hubpeople-toolkit.zip) and
+[`SHA256SUMS`](../../releases/latest/download/SHA256SUMS).
 
 One step an upgrade cannot do for you: if your workspace still holds a `.mcp.json` from
 an older version, replacing files will not remove it. Follow point 3 above — confirm
