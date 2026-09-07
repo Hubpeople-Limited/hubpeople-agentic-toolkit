@@ -33,7 +33,9 @@ With the empty `hubpeople-toolkit` folder open, say:
 >
 > 1. Download https://github.com/Hubpeople-Limited/hubpeople-agentic-toolkit/releases/latest/download/hubpeople-toolkit.zip
 >    and https://github.com/Hubpeople-Limited/hubpeople-agentic-toolkit/releases/latest/download/SHA256SUMS into this folder.
-> 2. Check the zip's SHA256 against the line for hubpeople-toolkit.zip in SHA256SUMS. Stop and tell me if it does not match.
+>    If either address is not found, read https://api.github.com/repos/Hubpeople-Limited/hubpeople-agentic-toolkit/releases/latest
+>    instead and download that release's agentic-toolkit-*.zip asset; its SHA256 is in the release notes.
+> 2. Check the zip's SHA256 against SHA256SUMS, or against the release notes if you used them. Stop and tell me if it does not match.
 > 3. Extract it. The zip holds one top-level folder; put that folder's contents directly in this folder,
 >    so AGENTS.md, VERSION and MANIFEST sit here at the top level.
 > 4. Delete the zip, SHA256SUMS and any empty folder left behind, then list what is here.
